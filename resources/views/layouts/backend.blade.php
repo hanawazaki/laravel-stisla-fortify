@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
+  <title>{{ config('app.name', 'My Blog') }} | @yield('title')</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- General CSS Files -->
@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="{{ asset('stisla/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('stisla/css/components.css') }}">
   <!-- Page Specific CSS File -->
+  <link href="toastr.css" rel="stylesheet"/>
+  {{-- toastr --}}
   @yield('css')
 </head>
 
@@ -40,7 +42,7 @@
   <script src="{{ asset('stisla/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
   <script src="{{ asset('stisla/modules/moment.min.js') }}"></script>
   <script src="{{ asset('stisla/js/stisla.js') }}"></script>
-
+  <script src="toastr.js"></script>
   <!-- Plugins -->
   @yield('plugin')
   <!-- Page Specific JS File -->
@@ -48,6 +50,31 @@
   <!-- Template JS File -->
   <script src="{{ asset('stisla/js/scripts.js') }}"></script>
   <script src="{{ asset('stisla/js/custom.js') }}"></script>
+  <script>
+    jQuery(document).ready(function($){
+        $('#mymodal').on('show.bs.modal',function(e){
+            var button = $(e.relatedTarget);
+            var modal = $(this);
+  
+            modal.find('.modal-body').load(button.data("remote"));
+            modal.find('.modal-title').html(button.data("title"));
+        });
+    });
+  </script>
+  <div class="modal fade" tabindex="-1" role="dialog" id="mymodal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"></h5>
+        </div>
+        <div class="modal-body">
+          <i class="fa fa-spinner fa-spin"></i>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+ 
 </body>
 
 </html>

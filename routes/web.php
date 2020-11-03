@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TagController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,4 +20,10 @@ Route::view('/', 'welcome')->name('welcome');
 Route::middleware('auth', 'verified')->group(function () {
 	Route::view('dashboard', 'dashboard')->name('dashboard');
 	Route::view('profile', 'profile')->name('profile');
+	// Route::get('posts', [PostController::class, 'index'])->name('posts');
+
+	Route::resource('category', CategoryController::class,['except' => ['show']]);
+	Route::get('category/{slug}', [CategoryController::class, 'show'])->name('category.show');
+
+	// Route::get('tags-list', [TagController::class, 'index'])->name('tags');
 });

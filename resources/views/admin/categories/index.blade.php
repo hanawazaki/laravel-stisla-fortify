@@ -8,16 +8,15 @@
             <div class="breadcrumb-item active"><a href="#">Category Lists</a></div>
         </div> --}}
     </div>
-
     <div class="section-body">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="card-header-form ">
-                            <form>
+                            <form method="GET" action="{{ URL::to('cari-kategori') }}">
                                 <div class="input-group ">
-                                    <input type="text" class="form-control" placeholder="Search">
+                                    <input type="text" class="form-control" placeholder="Search" name="search">
                                     <div class="input-group-btn">
                                         <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                     </div>
@@ -48,9 +47,16 @@
                                         <td style="width: 450px">{!! $item->content !!}</td>
                                         <td>{{ $item->slug }}</td>
                                         <td>
-                                            <a href="{{route('category.show',$item->slug)}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                            <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                            <a href="{{ route('category.show',$item->slug) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                            <a href="{{ route('category.edit',$item->slug) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                            <form action="{{ route('category.destroy', $item->slug) }}" 
+                                                  method="post" 
+                                                  class="d-inline"
+                                            >
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
 

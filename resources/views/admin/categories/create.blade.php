@@ -6,7 +6,7 @@
         <h1>Buat Kategori Baru</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item"><a href="{{ route('category.index') }}">Kategori</a></div>
-            <div class="breadcrumb-item active"><a href="#">Kategori Baru</a></div>
+            <div class="breadcrumb-item active">Kategori Baru</div>
         </div>
     </div>
     <div class="section-body">

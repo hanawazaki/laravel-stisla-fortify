@@ -18,7 +18,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $data = Category::orderBy('created_at','desc')->get();
+        $data = Category::orderBy('updated_at','desc')->get();
         return view('admin.categories.index')->with(['data' => $data]);
     }
 
@@ -43,18 +43,36 @@ class CategoryController extends Controller
         return view('admin.categories.show')->with(['data'=> $data]);
     }
 
-    public function edit($id)
+    public function edit($slug)
     {
-        //
+        $item = Category::where('slug',$slug)->first();
+        return view('admin.categories.edit')->with(['item'=>$item]);
     }
 
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $slug)
     {
-        //
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->title);
+        $item = Category::where('slug',$slug)->first();
+        $item->update($data);
+
+        return redirect()->route('category.index');
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        //
+        $item = Category::where('slug',$slug)->first();
+        $item->delete();
+
+        return redirect()->route('category.index');
+    }
+
+    public function search(Request $request){
+
+        $search = $request->search;
+        $data = Category::where('title','like',"%".$search."%")
+                        ->paginate();
+
+        return view('admin.categories.index')->with(['data' => $data]);
     }
 }

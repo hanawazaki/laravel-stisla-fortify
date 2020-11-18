@@ -12,5 +12,14 @@ class Tag extends Model
     use HasFactory;
 
     protected $fillable = ['id','content','title','slug'];
+    protected $dates = ['deleted_at'];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    public function posts(){
+        return $this->belongsToMany('App\Models\Post','post_tags');
+    }
 }

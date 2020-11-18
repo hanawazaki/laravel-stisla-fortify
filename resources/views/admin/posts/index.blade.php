@@ -3,10 +3,7 @@
 @section('title', 'Post Lists')
 @section('content')
     <div class="section-header">
-        <h1>Category List</h1>
-        {{-- <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="#">Category Lists</a></div>
-        </div> --}}
+        <h1>Post List</h1>
     </div>
     <div class="section-body">
         <div class="row">
@@ -14,7 +11,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="card-header-form ">
-                            <form method="GET" action="{{ URL::to('cari-kategori') }}">
+                            <form method="GET" action="{{ URL::to('cari-post') }}">
                                 <div class="input-group ">
                                     <input type="text" class="form-control" placeholder="Search" name="search">
                                     <div class="input-group-btn">
@@ -24,7 +21,7 @@
                             </form>
                         </div>
                         <div class="card-header-create ">
-                            <a href="{{route('category.create')}}" 
+                            <a href="{{route('post.create')}}" 
                                class="btn btn-primary">
                                Buat Baru
                             </a>
@@ -35,21 +32,23 @@
                             <table class="table table-striped">
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Kategori</th>
-                                    <th>Deskripsi</th>
-                                    <th>Slug</th>
+                                    <th>Judul Post</th>
+                                    <th>Content</th>
+                                    <th>Created at</th>
+                                    {{-- <th>Updated at</th> --}}
                                     <th>Action</th>
                                 </tr>
                                 @forelse ($data as $item)
                                     <tr>
                                         <td class="p-0 text-center">{{ $loop->index + 1 }}</td>
                                         <td>{{ $item->title }}</td>
-                                        <td style="width: 450px">{!! $item->content !!}</td>
-                                        <td>{{ $item->slug }}</td>
+                                        <td style="width: 450px">{!! $item->summary !!}</td>
+                                        <td>{{ $item->created_at }}</td>
+                                        {{-- <td>{{ $item->updated_at }}</td> --}}
                                         <td>
-                                            <a href="{{ route('category.show',$item->slug) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                            <a href="{{ route('category.edit',$item->slug) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                                            <form action="{{ route('category.destroy', $item->slug) }}" 
+                                            <a href="{{ route('post.show',$item->id) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                            <a href="{{ route('post.edit',$item->id) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                            <form action="{{ route('post.destroy', $item->id) }}" 
                                                   method="post" 
                                                   class="d-inline"
                                             >
@@ -67,7 +66,6 @@
                                         </td>
                                     </tr>
                                 @endforelse
-
                             </table>
                         </div>
                     </div>

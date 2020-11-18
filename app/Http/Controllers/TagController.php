@@ -3,82 +3,74 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Tag;
+use Illuminate\Support\Str;
+use App\Http\Requests\TagRequest;
 
 class TagController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //
+        $data = Tag::orderBy('updated_at','desc')->get();
+        return view('admin.tags.index')->with(['data' => $data]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('admin.tags.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(TagRequest $request)
     {
-        //
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->title);
+        Tag::create($data);
+
+        return redirect()->action([TagController::class,'index']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $data = Tag::where('id',$id)->first();
+
+        return view('admin.tags.show')->with(['data'=> $data]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $item = Tag::where('id',$id)->first();
+        return view('admin.tags.edit')->with(['item'=>$item]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(TagRequest $request, $id)
     {
-        //
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->title);
+        $item = Tag::where('id',$id)->first();
+        $item->update($data);
+
+        return redirect()->route('tag.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $item = Tag::where('id',$id)->first();
+        $item->delete();
+
+        return redirect()->route('tag.index');
+    }
+
+    public function search(Request $request){
+
+        $search = $request->search;
+        $data = Tag::where('title','like',"%".$search."%")
+                        ->paginate();
+
+        return view('admin.tags.index')->with(['data' => $data]);
     }
 }

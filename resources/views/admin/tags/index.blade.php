@@ -3,7 +3,7 @@
 @section('title', 'Post Lists')
 @section('content')
     <div class="section-header">
-        <h1>Category List</h1>
+        <h1>Tag List</h1>
         {{-- <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="#">Category Lists</a></div>
         </div> --}}
@@ -14,7 +14,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="card-header-form ">
-                            <form method="GET" action="{{ URL::to('cari-kategori') }}">
+                            <form method="GET" action="{{ URL::to('cari-tag') }}">
                                 <div class="input-group ">
                                     <input type="text" class="form-control" placeholder="Search" name="search">
                                     <div class="input-group-btn">
@@ -24,7 +24,7 @@
                             </form>
                         </div>
                         <div class="card-header-create ">
-                            <a href="{{route('category.create')}}" 
+                            <a href="{{route('tag.create')}}" 
                                class="btn btn-primary">
                                Buat Baru
                             </a>
@@ -35,7 +35,7 @@
                             <table class="table table-striped">
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Kategori</th>
+                                    <th>Nama Tag</th>
                                     <th>Deskripsi</th>
                                     <th>Slug</th>
                                     <th>Action</th>
@@ -47,9 +47,9 @@
                                         <td style="width: 450px">{!! $item->content !!}</td>
                                         <td>{{ $item->slug }}</td>
                                         <td>
-                                            <a href="{{ route('category.show',$item->slug) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                            <a href="{{ route('category.edit',$item->slug) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                                            <form action="{{ route('category.destroy', $item->slug) }}" 
+                                            <a href="{{ route('tag.show',$item->id) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                            <a href="{{ route('tag.edit',$item->id) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                            <form action="{{ route('tag.destroy', $item->id) }}" 
                                                   method="post" 
                                                   class="d-inline"
                                             >
@@ -62,8 +62,8 @@
 
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center p-5">
-                                            <i>Data Kosong</i>
+                                        <td colspan="5" class="text-center p-5">
+                                           <i> Data Kosong</i>
                                         </td>
                                     </tr>
                                 @endforelse

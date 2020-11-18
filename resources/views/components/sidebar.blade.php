@@ -31,13 +31,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('post.index') }}">
                         <i class="fas fa-clipboard-list"></i>
                         <span>Post List</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('tag.index') }}">
                         <i class="fas fa-tags"></i>
                         <span>Tag List</span>
                     </a>

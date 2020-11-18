@@ -20,10 +20,13 @@ Route::view('/', 'welcome')->name('welcome');
 Route::middleware('auth', 'verified')->group(function () {
 	Route::view('dashboard', 'dashboard')->name('dashboard');
 	Route::view('profile', 'profile')->name('profile');
-	// Route::get('posts', [PostController::class, 'index'])->name('posts');
+
+	Route::resource('post', PostController::class);
+	Route::get('cari-post', [PostController::class,'search'])->name('search');
 
 	Route::resource('category', CategoryController::class);
 	Route::get('cari-kategori', [CategoryController::class,'search'])->name('search');
 
-	// Route::get('tags-list', [TagController::class, 'index'])->name('tags');
+	Route::resource('tag', TagController::class);
+	Route::get('cari-tag', [TagController::class,'search'])->name('search');
 });

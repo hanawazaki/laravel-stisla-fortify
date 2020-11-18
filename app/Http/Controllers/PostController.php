@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\Tag;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -13,7 +17,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('admin.posts');
+        $data = Post::orderBy('updated_at', 'desc')->get();
+        return view('admin.posts.index')->with(['data' => $data]);
     }
 
     /**
@@ -23,7 +28,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view('admin.posts.create')->with(['categories' => $categories,'tags'=>$tags]);
     }
 
     /**
@@ -34,7 +42,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->title);
+        $data['author_id'] = 1 ;
+        $data['published'] = 1 ;
+        // published_at dinull kan dulu
+        $post = Post::create($data);
+
+        $post->tags()->sync($request->tag_id,false);
+
+        return redirect()->action([PostController::class,'index']);
     }
 
     /**

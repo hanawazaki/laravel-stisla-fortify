@@ -61,14 +61,17 @@ class PostController extends Controller
         $post = Post::where("id",$id)->first();
         $post->update($data);
 
-        $post->tags()->sync($request->tag_id, false);
+        $post->tags()->sync($request->tag_id, true);
 
         return redirect()->action([PostController::class, 'index']);
     }
 
     public function destroy($id)
     {
-        //
+        $item = Post::where("id",$id)->first();
+        $item->delete();
+
+        return redirect()->action([PostController::class,'index']);
     }
 
     public function search(Request $request)

@@ -10,94 +10,74 @@ use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $data = Post::orderBy('updated_at', 'desc')->get();
         return view('admin.posts.index')->with(['data' => $data]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $categories = Category::all();
         $tags = Tag::all();
 
-        return view('admin.posts.create')->with(['categories' => $categories,'tags'=>$tags]);
+        return view('admin.posts.create')->with(['categories' => $categories, 'tags' => $tags]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        // dd($request);
-
         $data = $request->all();
         $data['slug'] = Str::slug($request->title);
-        $data['author_id'] = 1 ;
-        $data['published'] = 1 ;
-        // published_at dinull kan dulu
+        $data['summary'] = Str::words($request->content, 50);
+        $data['comments'] = 1;
+        $data['featured'] = 0;
         $post = Post::create($data);
 
-        $post->tags()->sync($request->tag_id,false);
+        $post->tags()->sync($request->tag_id, false);
 
-        return redirect()->action([PostController::class,'index']);
+        return redirect()->action([PostController::class, 'index']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $item = Post::where('id', $id)->first();
+
+        $categories = Category::all();
+        $tags = Tag::all();
+        return view('admin.posts.edit')->with([
+            'item' => $item,
+            'categories' => $categories,
+            'tags' => $tags
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->title);
+        $data['summary'] = Str::words($request->content, 50);
+        $data['comments'] = 1;
+        $data['featured'] = 0;
+        $post = Post::where("id",$id)->first();
+        $post->update($data);
+
+        $post->tags()->sync($request->tag_id, false);
+
+        return redirect()->action([PostController::class, 'index']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        $data = Post::where('title', 'like', "%" . $search . "%")
+            ->orWhere('summary', 'like', '%' . $search . '%')
+            ->paginate();
+
+        return view('admin.posts.index')->with(['data' => $data]);
     }
 }

@@ -32,7 +32,7 @@
                                     <select name="category_id"
                                         class="form-control @error('category_id') is-invalid @enderror" required>
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('category_id')
@@ -47,7 +47,7 @@
                                         class="form-control select2-multi @error('tag_id') is-invalid @enderror"
                                         multiple="multiple">
                                         @foreach ($tags as $tag)
-                                            <option value="{{ $tag->id }}">{{ $tag->title }}</option>
+                                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('tag_id')
@@ -58,11 +58,11 @@
                             <div class="form-group">
                                 <label for="content">Body</label>
                                 <div class="input-group mb-2">
-                                    <textarea name="summary" 
+                                    <textarea name="content" 
                                               id="mytextarea"
-                                              class="form-control @error('summary') is-invalid @enderror"
+                                              class="form-control @error('content') is-invalid @enderror"
                                               placeholder="isi deskripsi kategori"></textarea>
-                                    @error('summary')
+                                    @error('content')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>

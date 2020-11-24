@@ -18,23 +18,12 @@
                             @csrf
                             @method('PUT')
                             <div class="form-group">
-                                <label for="title">Nama Tag</label>
+                                <label for="name">Nama Tag</label>
                                 <div class="input-group mb-2">
-                                    <input type="text" value="{{ old('title') ? old('title') : $item->title }}" name="title"
+                                    <input type="text" value="{{ old('name') ? old('name') : $item->name }}" name="name"
                                             placeholder="isi nama tag"
-                                            class="form-control @error('title') is-invalid @enderror">
-                                    @error('title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="content">Deskripsi</label>
-                                <div class="input-group mb-2">
-                                    <textarea name="content" id="content" 
-                                        class="form-control @error ('content') is-invalid @enderror"
-                                        placeholder="isi deskripsi tag">{{$item->content}}</textarea>
-                                    @error('content')
+                                            class="form-control @error('name') is-invalid @enderror">
+                                    @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>

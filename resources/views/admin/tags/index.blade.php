@@ -36,18 +36,15 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Tag</th>
-                                    <th>Deskripsi</th>
                                     <th>Slug</th>
                                     <th>Action</th>
                                 </tr>
                                 @forelse ($data as $item)
                                     <tr>
                                         <td class="p-0 text-center">{{ $loop->index + 1 }}</td>
-                                        <td>{{ $item->title }}</td>
-                                        <td style="width: 450px">{!! $item->content !!}</td>
-                                        <td>{{ $item->slug }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td style="width: 450px">{!! $item->slug !!}</td>
                                         <td>
-                                            <a href="{{ route('tag.show',$item->id) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
                                             <a href="{{ route('tag.edit',$item->id) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
                                             <form action="{{ route('tag.destroy', $item->id) }}" 
                                                   method="post" 
@@ -59,7 +56,6 @@
                                             </form>
                                         </td>
                                     </tr>
-
                                 @empty
                                     <tr>
                                         <td colspan="5" class="text-center p-5">

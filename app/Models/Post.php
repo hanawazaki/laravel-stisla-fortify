@@ -12,14 +12,18 @@ class Post extends Model
     use Softdeletes;
     use HasFactory;
 
-    protected $fillable = ['id', 'author_id', 'content', 'title', 'slug', 'summary', 'published', 'published_at'];
+    protected $fillable = ['id', 'category_id', 'content', 'title', 'slug', 'summary', 'status', 'comments','featured'];
 
-    public function categories()
-    {
-        return $this->belongsTo('App\Models\Post');
+    public function categories(){
+        return $this->belongsTo('App\Models\Category','category_id');
     }
 
     public function tags(){
-        return $this->belongsToMany('App\Models\Tag','post_tags');
+        return $this->belongsToMany('App\Models\Tag','post_tag');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
     }
 }

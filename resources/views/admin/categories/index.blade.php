@@ -3,7 +3,7 @@
 @section('title', 'Post Lists')
 @section('content')
     <div class="section-header">
-        <h1>Category List</h1>
+        <a href="{{ route('category.index')}}"><h1>Category List</h1></a>
         {{-- <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="#">Category Lists</a></div>
         </div> --}}
@@ -37,17 +37,14 @@
                                     <th>No</th>
                                     <th>Nama Kategori</th>
                                     <th>Deskripsi</th>
-                                    <th>Slug</th>
                                     <th>Action</th>
                                 </tr>
                                 @forelse ($data as $item)
                                     <tr>
                                         <td class="p-0 text-center">{{ $loop->index + 1 }}</td>
-                                        <td>{{ $item->title }}</td>
-                                        <td style="width: 450px">{!! $item->content !!}</td>
-                                        <td>{{ $item->slug }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td style="width: 450px">{!! $item->description !!}</td>
                                         <td>
-                                            <a href="{{ route('category.show',$item->slug) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
                                             <a href="{{ route('category.edit',$item->slug) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
                                             <form action="{{ route('category.destroy', $item->slug) }}" 
                                                   method="post" 

@@ -12,9 +12,9 @@
             <div class="col-12 col-lg-12 col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <label for="">{{$data->title}}</label>
+                        <label for="">{{$data->name}}</label>
                         <br>
-                        <label for="">{{$data->content}}</label>
+                        <label for="">{{$data->description}}</label>
                     </div>
                 </div>
             </div>

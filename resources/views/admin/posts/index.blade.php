@@ -33,20 +33,22 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Judul Post</th>
-                                    <th>Content</th>
-                                    <th>Created at</th>
-                                    {{-- <th>Updated at</th> --}}
+                                    <th>Kategori</th>
+                                    <th>Summary</th>
+                                    <th>Status</th>
+                                    <th>Featured</th>
                                     <th>Action</th>
                                 </tr>
                                 @forelse ($data as $item)
                                     <tr>
                                         <td class="p-0 text-center">{{ $loop->index + 1 }}</td>
                                         <td>{{ $item->title }}</td>
+                                        <td>{{ $item->categories['name'] }}</td>
                                         <td style="width: 450px">{!! $item->summary !!}</td>
-                                        <td>{{ $item->created_at }}</td>
+                                        <td>{{ $item->status }}</td>
+                                        <td>{{ $item->featured }}</td>
                                         {{-- <td>{{ $item->updated_at }}</td> --}}
                                         <td>
-                                            <a href="{{ route('post.show',$item->id) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
                                             <a href="{{ route('post.edit',$item->id) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
                                             <form action="{{ route('post.destroy', $item->id) }}" 
                                                   method="post" 

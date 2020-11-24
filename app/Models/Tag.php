@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tag extends Model
 {
-    use Softdeletes;
     use HasFactory;
+    use SoftDeletes;
 
-    protected $fillable = ['id','content','title','slug'];
-    protected $dates = ['deleted_at'];
+    protected $fillable = ['id','name','slug'];
 
     public function getRouteKeyName()
     {
@@ -20,6 +19,6 @@ class Tag extends Model
     }
 
     public function posts(){
-        return $this->belongsToMany('App\Models\Post','post_tags');
+        return $this->belongsToMany('App\Models\Post','post_tag');
     }
 }

@@ -1,12 +1,12 @@
 @extends('layouts.backend')
 
-@section('title', 'Category Create')
+@section('title', 'Post Edit')
 @section('content')
     <div class="section-header">
-        <h2>Ubah Kategori</h2>
+        <h2>Ubah Post</h2>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item"><a href="{{ route('category.index') }}">Kategori</a></div>
-            <div class="breadcrumb-item active">Ubah Kategori</div>
+            <div class="breadcrumb-item"><a href="{{ route('post.index') }}">Post</a></div>
+            <div class="breadcrumb-item active">Ubah Post</div>
         </div>
     </div>
     <div class="section-body">
@@ -14,28 +14,57 @@
             <div class="col-12 col-md-6 col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('category.update',$item->slug) }}" method="POST">
-                            @csrf
+                        <form action="{{ route('post.update',$item->id) }}" method="POST">
                             @method('PUT')
+                            @csrf
                             <div class="form-group">
-                                <label for="title">Nama Kategori</label>
+                                <label for="title">Judul Post</label>
                                 <div class="input-group mb-2">
-                                    <input type="text" value="{{ old('title') ? old('title') : $item->title }}" name="title"
-                                            placeholder="isi nama kategori"
-                                            class="form-control @error('title') is-invalid @enderror">
+                                    <input type="text" value="{{ old('title') ? old('title') : $item->title }}" name="title" placeholder="isi judul"
+                                        class="form-control @error('title') is-invalid @enderror">
                                     @error('title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="content">Deskripsi</label>
+                                <label for="category">Kategori Post</label>
                                 <div class="input-group mb-2">
-                                    <textarea name="content" id="content" 
-                                        class="form-control @error ('content') is-invalid @enderror"
-                                        placeholder="isi deskripsi kategori">{{$item->content}}</textarea>
+                                    <select name="category_id"
+                                        class="form-control @error('category_id') is-invalid @enderror" required>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}" {{ $category->id == $item->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('category_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tag">Tags</label>
+                                <div class="input-group mb-2">
+                                    <select name="tag_id[]"
+                                        class="form-control select2-multi @error('tag_id') is-invalid @enderror"
+                                        multiple="multiple">
+                                        @foreach ($tags as $tag)
+                                            <option value="{{ $tag->id }}" {{ $tag->id == $item->tag_id ? 'selected' : '' }}>{{ $tag->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('tag_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="content">Body</label>
+                                <div class="input-group mb-2">
+                                    <textarea name="content" 
+                                              id="mytextarea"
+                                              class="form-control @error('content') is-invalid @enderror"
+                                                placeholder="isi deskripsi kategori">{{$item->content}}</textarea>
                                     @error('content')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>

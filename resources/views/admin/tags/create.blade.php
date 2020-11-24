@@ -17,25 +17,14 @@
                         <form action="{{ route('tag.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="title">Nama Tag</label>
+                                <label for="name">Nama Tag</label>
                                 <div class="input-group mb-2">
                                     <input type="text" 
-                                           value="{{ old('title') }}" 
-                                           name="title" 
+                                           value="{{ old('name') }}" 
+                                           name="name" 
                                            placeholder="isi nama tag"
-                                           class="form-control @error('title') is-invalid @enderror">
-                                    @error('title')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="content">Deskripsi</label>
-                                <div class="input-group mb-2">
-                                    <textarea name="content" id="content" cols="30" rows="10" 
-                                              class="form-control @error ('content') is-invalid @enderror"
-                                              placeholder="isi deskripsi tag"></textarea>
-                                    @error('content')
+                                           class="form-control @error('name') is-invalid @enderror">
+                                    @error('name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>

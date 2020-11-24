@@ -28,7 +28,7 @@ class TagController extends Controller
     public function store(TagRequest $request)
     {
         $data = $request->all();
-        $data['slug'] = Str::slug($request->title);
+        $data['slug'] = Str::slug($request->name);
         Tag::create($data);
 
         return redirect()->action([TagController::class,'index']);
@@ -50,7 +50,7 @@ class TagController extends Controller
     public function update(TagRequest $request, $id)
     {
         $data = $request->all();
-        $data['slug'] = Str::slug($request->title);
+        $data['slug'] = Str::slug($request->name);
         $item = Tag::where('id',$id)->first();
         $item->update($data);
 
@@ -68,7 +68,7 @@ class TagController extends Controller
     public function search(Request $request){
 
         $search = $request->search;
-        $data = Tag::where('title','like',"%".$search."%")
+        $data = Tag::where('name','like',"%".$search."%")
                         ->paginate();
 
         return view('admin.tags.index')->with(['data' => $data]);

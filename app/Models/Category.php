@@ -2,17 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
     use HasFactory;
-    use Softdeletes;
+    use SoftDeletes;
 
-    protected $fillable = ['id','content','title','slug'];
-    protected $dates = ['deleted_at'];
+    protected $fillable = ['id','name','slug','description'];
 
     public function getRouteKeyName()
     {
@@ -20,6 +19,6 @@ class Category extends Model
     }
 
     public function posts(){
-        return $this->hasMany('App\Models\Category');
+        return $this->hasMany('App\Models\Category','category_id');
     }
 }

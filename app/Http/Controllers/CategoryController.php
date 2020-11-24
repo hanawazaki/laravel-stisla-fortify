@@ -30,7 +30,8 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         $data = $request->all();
-        $data['slug'] = Str::slug($request->title);
+
+        $data['slug'] = Str::slug($request->name);
         Category::create($data);
 
         return redirect()->action([CategoryController::class,'index']);
@@ -52,7 +53,7 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, $slug)
     {
         $data = $request->all();
-        $data['slug'] = Str::slug($request->title);
+        $data['slug'] = Str::slug($request->name);
         $item = Category::where('slug',$slug)->first();
         $item->update($data);
 
@@ -70,7 +71,7 @@ class CategoryController extends Controller
     public function search(Request $request){
 
         $search = $request->search;
-        $data = Category::where('title','like',"%".$search."%")
+        $data = Category::where('name','like',"%".$search."%")
                         ->paginate();
 
         return view('admin.categories.index')->with(['data' => $data]);

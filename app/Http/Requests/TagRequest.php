@@ -24,16 +24,14 @@ class TagRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:255',
-            'content' => 'required',
+            'name' => 'required|max:255',
         ];
     }
 
     public function messages()
     {
         return [
-            'title.required' => 'kategori harus diisi',
-            'content.required' => 'deskripsi harus diisi',
+            'name.required' => 'kategori harus diisi',
         ];
     }
 }

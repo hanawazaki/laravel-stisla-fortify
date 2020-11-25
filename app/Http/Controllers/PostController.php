@@ -13,6 +13,7 @@ class PostController extends Controller
     public function index()
     {
         $data = Post::orderBy('updated_at', 'desc')->get();
+        // dd($data);
         return view('admin.posts.index')->with(['data' => $data]);
     }
 
@@ -55,7 +56,7 @@ class PostController extends Controller
     {
         $data = $request->all();
         $data['slug'] = Str::slug($request->title);
-        $data['summary'] = Str::words($request->content, 50);
+        $data['summary'] = Str::words($request->content, 50,'...');
         $data['comments'] = 1;
         $data['featured'] = 0;
         $post = Post::where("id",$id)->first();

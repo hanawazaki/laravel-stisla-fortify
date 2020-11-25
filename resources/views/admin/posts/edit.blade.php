@@ -48,7 +48,10 @@
                                         class="form-control select2-multi @error('tag_id') is-invalid @enderror"
                                         multiple="multiple">
                                         @foreach ($tags as $tag)
-                                            <option value="{{ $tag->id }}" {{ $tag->id == $item->tag_id ? 'selected' : '' }}>{{ $tag->name }}</option>
+                                            <option value="{{ $tag->id }}" 
+                                                           {{ ($item->tags()->pluck('tag_id')->contains($tag->id)) ? 'selected' : '' }}>
+                                                           {{ $tag->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                     @error('tag_id')
@@ -62,7 +65,7 @@
                                     <textarea name="content" 
                                               id="mytextarea"
                                               class="form-control @error('content') is-invalid @enderror"
-                                                placeholder="isi deskripsi kategori">{{$item->content}}</textarea>
+                                              placeholder="isi deskripsi kategori">{{$item->content}}</textarea>
                                     @error('content')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

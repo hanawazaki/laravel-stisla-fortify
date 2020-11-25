@@ -14,7 +14,7 @@
             <div class="col-12 col-md-6 col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('post.store') }}" method="POST">
+                        <form action="{{ route('post.store') }}" method="POST" id="formUpload">
                             @csrf
                             <div class="form-group">
                                 <label for="title">Judul Post</label>

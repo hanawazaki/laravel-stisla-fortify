@@ -44,7 +44,7 @@
                                         <td class="p-0 text-center">{{ $loop->index + 1 }}</td>
                                         <td>{{ $item->title }}</td>
                                         <td>{{ $item->categories['name'] }}</td>
-                                        <td style="width: 450px">{!! $item->summary !!}</td>
+                                        <td>{!! $item->summary !!}</td>
                                         <td>{{ $item->status }}</td>
                                         <td>{{ $item->featured }}</td>
                                         {{-- <td>{{ $item->updated_at }}</td> --}}

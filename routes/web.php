@@ -30,8 +30,8 @@ Route::middleware('auth', 'verified')->group(function () {
 	Route::resource('tag', TagController::class);
 	Route::get('cari-tag', [TagController::class,'search'])->name('search');
 
-	Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
-		\UniSharp\LaravelFilemanager\Lfm::routes();
-	});
+	// Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+	// 	\UniSharp\LaravelFilemanager\Lfm::routes();
+	// });
 
 });

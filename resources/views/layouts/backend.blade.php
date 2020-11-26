@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('stisla/css/components.css') }}">
     <link rel="stylesheet" href="{{ asset('stisla/css/custom-style.css') }}">
     <!-- Page Specific CSS File -->
-    <link href="toastr.css" rel="stylesheet" />
+    {{-- <link href="toastr.css" rel="stylesheet" /> --}}
     {{-- toastr --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
     {{-- select2 --}}
@@ -45,7 +45,7 @@
     <script src="{{ asset('stisla/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ asset('stisla/modules/moment.min.js') }}"></script>
     <script src="{{ asset('stisla/js/stisla.js') }}"></script>
-    <script src="toastr.js"></script>
+    {{-- <script src="toastr.js"></script> --}}
     <!-- Plugins -->
     @yield('plugin')
     <!-- Page Specific JS File -->
